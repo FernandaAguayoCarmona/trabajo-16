@@ -1,0 +1,12 @@
+usuario 1
+IOS
+5
+2
+usuario 2
+MAC
+8
+2
+usuario 3
+IOS
+8
+2
