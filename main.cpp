@@ -8,71 +8,73 @@ using namespace std;
 
 
 // computadora.h
-class computadora 
+class Civilizacion 
 {
-    string sistem_Op;
-    string nombre_equipo;
-    int ram;
-    float almacenamiento;
+    string nombre;
+    float ubicacion_x;
+    float ubicacion_y;
+    float puntuacion;
+    
 
 public:
-    computadora ();
-    computadora (const string &sistem_Op, const string &nombre_equipo, int ram, float almacenamiento);
-    void setSistem_Op (const string &v);
-    string getSistem_Op ();
-    void setNombre_equipo (const string &v);
-    string getNombre_equipo ();
-    void setRAM (int v);
-    int getRAM ();
-    void setAlmacenamiento (float v);
-    float getAlmacenamiento ();
+    Civilizacion ();
+    Civilizacion (const string &nombre, float ubicacion_x, float ubicacion_y, float puntuacion);
+    void setNombre (const string &v);
+    string getNombre ();
+    void setUbicacion_x (float v);
+    float getUbicacion_x ();
+    void setUbicacion_y (float v);
+    float getUbicacion_y ();
+    void setPuntuacion (float v);
+    float getPuntuacion ();
+
 
 // Sobrecarga del operador 
-    friend ostream& operator<<(ostream&out, const computadora &p)
+    friend ostream& operator<<(ostream&out, const Civilizacion &p)
     {
         // Imprimir cada atributo con out          
             out << left ; // Para que todo este  alineado          
-            out << setw(20) << p.sistem_Op;
-            out << setw(20) << p.nombre_equipo;
-            out << setw(10) << p.ram;
-            out << setw(18) << p.almacenamiento;
+            out << setw(20) << p.nombre;
+            out << setw(20) << p.ubicacion_x;
+            out << setw(10) << p.ubicacion_y;
+            out << setw(18) << p.puntuacion;
             out << endl;
 // En out estara toda la informacion
             return out;
     }
 // Sobrecargar el operador de entrada
-    friend istream& operator>>(istream&in, computadora &p)
+    friend istream& operator>>(istream&in, Civilizacion &p)
     {
-            cout << "Sistema Operativo: ";
-            getline (cin, p.sistem_Op);
+            cout << "Nombre: ";
+            getline (cin, p.nombre);
 
-            cout << "Nombre del equipo: ";
-            getline (cin, p.nombre_equipo);
+            cout << "Ubicacion en X: ";
+            cin >> p.ubicacion_x;
 
-            cout << "Ram: ";
-            cin >> p.ram;
+            cout << "Ubicacion en Y: ";
+            cin >> p.ubicacion_y;
 
-            cout << "Almacenamiento: ";
-            cin >> p.almacenamiento;
+            cout << "Puntuacion: ";
+            cin >> p.puntuacion;
 
             return in;
     }
-    bool operator==(const computadora& p)
+    bool operator==(const Civilizacion& p)
     {
-        return sistem_Op == p.sistem_Op;
+        return nombre == p.nombre;
     }
-    bool operator==(const computadora& p) const
+    bool operator==(const Civilizacion& p) const
     {
-        return sistem_Op == p.sistem_Op;
+        return nombre == p.nombre;
     }
 
-    bool operator<(const computadora& p)
+    bool operator<(const Civilizacion& p)
     {
         return 2;
     }
-    bool operator<(const computadora& p) const
+    bool operator<(const Civilizacion& p) const
     {
-        return sistem_Op < p.sistem_Op;
+        return nombre < p.nombre;
     }
 
 };
@@ -82,53 +84,56 @@ public:
 
 
 //computadora.cpp
-computadora :: computadora ()
+Civilizacion :: Civilizacion ()
 {
 }
 
-computadora::computadora(const string &sistem_Op, const string &nombre_equipo, int ram, float almacenamiento)
+Civilizacion::Civilizacion(const string &nombre, float ubicacion_x, float ubicacion_y, float puntuacion)
 {
-    this -> sistem_Op = sistem_Op;
-    this -> nombre_equipo = nombre_equipo;
-    this -> ram = ram;
-    this -> almacenamiento = almacenamiento;
+    this -> nombre = nombre;
+    this -> ubicacion_x = ubicacion_x;
+    this -> ubicacion_y = ubicacion_y;
+    this -> puntuacion = puntuacion;
 }
-//          sistema operativo
-void computadora::setSistem_Op(const string &v)
+//          nombre
+void Civilizacion::setNombre(const string &v)
     {
-        sistem_Op = v;
+        nombre = v;
     }
-    string computadora :: getSistem_Op()
+    string Civilizacion :: getNombre()
 {
-    return sistem_Op;
+    return nombre;
 }
-//          nombre del equipo
-void computadora::setNombre_equipo(const string &v)
+//          ubicacion x
+void Civilizacion::setUbicacion_x(float v)
     {
-        nombre_equipo = v;
+        ubicacion_x = v;
     }
-    string computadora :: getNombre_equipo()
+    float Civilizacion :: getUbicacion_x()
 {
-    return nombre_equipo;
+    return ubicacion_x;
 }
-//          Ram
-void computadora::setRAM(int v)
+//          ubicacion y
+void Civilizacion::setUbicacion_y(float v)
     {
-        ram = v;
+        ubicacion_y = v;
     }
-    int computadora :: getRAM()
+    float Civilizacion :: getUbicacion_y()
 {
-    return ram;
+    return ubicacion_y;
 }
-//          almacenamiento
-void computadora::setAlmacenamiento(float v)
+//          puntuacion
+void Civilizacion::setPuntuacion(float v)
     {
-        almacenamiento = v;
+        puntuacion = v;
     }
-    float computadora :: getAlmacenamiento()
+    float Civilizacion :: getPuntuacion()
 {
-    return almacenamiento;
+    return puntuacion;
 }
+
+
+
 
 
 
@@ -136,28 +141,35 @@ void computadora::setAlmacenamiento(float v)
 
 
 //  Clase Administradora.h
-class Laboratorio
+class VideoGame
 {
-   vector<computadora> computadoras;
+
+    string nombre_videogame;
+    vector<Civilizacion> civilizaciones;
 
 public:
-    Laboratorio ();
-    void agregarcompu (const computadora &p);
-    void mostrar ();
-    void respaldar_tabla ();
-    void respaldar ();
-    void recuperar ();
+    VideoGame ();
 
-    void insertar(const computadora &p, size_t pos);
+    void agregarcivilizacion (const Civilizacion &p);
+    void mostrar ();
+    void insertar(const Civilizacion &p, size_t pos);
     size_t size();
-    void inicializar(const computadora &p, size_t n);
+    void inicializar(const Civilizacion &p, size_t n);
     void eliminar(size_t pos);
-    void ordenar();
-    computadora* buscar(const computadora &p);
-    
-    friend Laboratorio& operator<< (Laboratorio&v, const computadora &p)
+    void ordenarNombre ();
+    void ordenarUbicacion_x ();
+    void ordenarUbicacion_y ();
+    void ordenarPuntuacion ();
+    void primera();
+    void ultimo();
+    void setNombre_Videogame (const string &nombre_videogame);
+    string getNombre_Videogame();
+
+    Civilizacion* buscar(const Civilizacion &p);
+    Civilizacion* modificar(Civilizacion &p);
+    friend VideoGame& operator<< (VideoGame&v, const Civilizacion &p)
     {
-        v.agregarcompu (p);
+        v.agregarcivilizacion (p);
         return v;
     }
 
@@ -166,172 +178,190 @@ public:
 
 
 
+
+
+
+
+
+
 //  Clase Administradora.cpp
 
-Laboratorio::Laboratorio ()
-{
+VideoGame::VideoGame ()
+    {
 
-}
+    }
 
-void Laboratorio::agregarcompu (const computadora &p)
-{
-    computadoras.push_back(p);
-}
+void VideoGame::agregarcivilizacion (const Civilizacion &p)
+    {
+        civilizaciones.push_back(p);
+    }
 
 //Imprimira los datos que hayas ingresado, no necesariamente los 5 elementos.
-void Laboratorio::mostrar ()
-{   
-    cout << left ;
-    cout << endl;
-    cout << setw (20) << "Sistema Operativo- ";
-    cout << setw (20) << "Nombre del equipo- ";
-    cout << setw (10) << "Ram- ";
-    cout << setw (18) << "Almacenamiento- ";
-    cout << endl;
-
-    for (size_t i = 0; i < computadoras.size(); i++)
+void VideoGame::mostrar ()
     {   
-        computadora &p = computadoras [i];
-        cout << p;
-    //    cout << "Sistema Operativo: " << arreglo[i].getSistem_Op() << endl;
-    //    cout << "Nombre del equipo: " << arreglo[i].getNombre_equipo() << endl;
-    //    cout << "Ram: " << arreglo[i].getRAM() << "GB" << endl;
-    //    cout << "Almacenamiento: " << arreglo[i].getAlmacenamiento() << "GB" << endl;
-    //    cout << endl;
-    }
-}   
-    void Laboratorio::respaldar_tabla ()
-    {
-        ofstream archivo("Computadoras_Tabla.txt");
-        if (archivo.is_open())
-        {
-            archivo << left ;
-            archivo << endl;
-            archivo << setw (20) << "Sistema Operativo- ";
-            archivo << setw (20) << "Nombre del equipo- ";
-            archivo << setw (10) << "Ram- ";
-            archivo << setw (18) << "Almacenamiento- ";
-            archivo << endl;
+        cout << left ;
+        cout << endl;
+        cout << setw (20) << "Nombre- ";
+        cout << setw (20) << "Ubicacion X- ";
+        cout << setw (10) << "Ubicacion Y- ";
+        cout << setw (18) << "Puntuacion- ";
+        cout << endl;
 
-            for (size_t i = 0; i < computadoras.size(); i++)
-            {
-                computadora &p = computadoras [i];
-                archivo << p;
-                // Imprime en nuestro archivo
-            }
+        for (size_t i = 0; i < civilizaciones.size(); i++)
+        {   
+            Civilizacion &p = civilizaciones [i];
+            cout << p;
         }
-        archivo.close();
+    }   
+
+void VideoGame::setNombre_Videogame( const string &n ){
+    nombre_videogame = n;
+}
+string VideoGame::getNombre_Videogame(){
+    return nombre_videogame;
+}
+
+
+void VideoGame::primera ()
+    {
+        if (civilizaciones.empty())
+            {
+                cout << "Vector esta vacio" << endl;
+            }
+            else 
+                {
+                    cout << civilizaciones.front() << endl;
+                }
     }
 
-    void Laboratorio::respaldar()
+void VideoGame::ultimo ()
     {
-        ofstream archivo("Computadoras.txt");
-        if (archivo.is_open())
-        {
-            for (size_t i = 0; i < computadoras.size(); i++)
+        if (civilizaciones.empty())
             {
-                computadora &p = computadoras [i];
-                archivo << p.getNombre_equipo () << endl;
-                archivo << p.getSistem_Op () << endl;
-                archivo << p.getRAM () << endl;
-                archivo << p.getAlmacenamiento () << endl;
-                // Imprime linea por linea
+                cout << "Vector esta vacio" << endl;
             }
-        }
-        archivo.close();
+            else 
+                {
+                    cout << civilizaciones.back() << endl;
+                }
     }
-        void Laboratorio::recuperar()
+
+void VideoGame::insertar(const Civilizacion &p, size_t pos)
     {
-        ifstream archivo ("Computadoras.txt");
-        if (archivo.is_open())
-        {
-            string temp;
-            computadora p;
-            int ram;
-            float almacenamiento;
-            
-            while (true)
+        civilizaciones.insert(civilizaciones.begin()+pos, p);
+    }
+
+size_t VideoGame::size()
+    {
+        return civilizaciones.size();
+    }
+
+void VideoGame::inicializar(const Civilizacion &p, size_t n)
+    {
+        civilizaciones = vector<Civilizacion>(n, p);
+    }
+
+void VideoGame::eliminar(size_t pos)
+    {
+        civilizaciones.erase(civilizaciones.begin()+pos);
+    }
+
+// FUNCION LAMBDA
+// ascendente "<" descendente ">".
+
+void VideoGame::ordenarNombre()
+    {
+        sort(civilizaciones.begin(), civilizaciones.end(), 
+        [] (Civilizacion p1, Civilizacion p2) { return p1.getNombre() < p2.getNombre();});
+    }
+void VideoGame::ordenarUbicacion_x()
+    {
+        sort(civilizaciones.begin(), civilizaciones.end(), 
+        [] (Civilizacion p1, Civilizacion p2) { return p1.getUbicacion_x() < p2.getUbicacion_x();});
+    }
+void VideoGame::ordenarUbicacion_y()
+    {
+        sort(civilizaciones.begin(), civilizaciones.end(), 
+        [] (Civilizacion p1, Civilizacion p2) { return p1.getUbicacion_y() < p2.getUbicacion_y();});
+    }
+void VideoGame::ordenarPuntuacion()
+    {
+        sort(civilizaciones.begin(), civilizaciones.end(), 
+        [] (Civilizacion p1, Civilizacion p2) { return p1.getPuntuacion() > p2.getPuntuacion();});
+    }
+
+
+Civilizacion* VideoGame::buscar(const Civilizacion &p)
+    {
+        // vector<Personaje>::iterator
+        auto it = find(civilizaciones.begin(), civilizaciones.end(), p);
+
+        if (it == civilizaciones.end()) {
+            return nullptr;
+        }
+        else {
+            return &(*it);
+        }
+    }
+
+
+
+Civilizacion* VideoGame::modificar(Civilizacion &p)
+    {
+        int op;
+        string nuevo_nombre;
+        float nuevo_x, nuevo_y, nuevo_puntuacion;
+        cout << "=============== Menu de Modificar ===============" << endl;
+        cout << "1) Modificar el Nombre" << endl;
+        cout << "2) Modificar la Ubicacion en X" << endl;
+        cout << "3) Modificar la Ubicacion en Y" << endl;
+        cout << "4) Modificar la Puntuacion" << endl;
+        cout << "Selecciona el dato que desee modificar: " << endl;
+        cin >> op; 
+        cin.ignore();
+
+        switch(op)
             {
-                getline (archivo, temp);
-                if (archivo.eof())
+              case 1:
                     {
+                        cout << "Escribe el nuevo nombre" << endl;
+                        getline(cin,nuevo_nombre);
+                        p.setNombre(nuevo_nombre); 
+                        cout << "Nombre actualizado" << endl;     
+                        system ("pause");
                         break;
-                    } // terminar el ciclo
-                p.setSistem_Op (temp);
+                    }
 
-                getline (archivo, temp);
-                p.setNombre_equipo (temp);
+                case 2:
+                    {   
+                        cout << "Escribe la nueva Ubicacion x" << endl;
+                        cin >> nuevo_x; cin.ignore();
+                        p.setUbicacion_x(nuevo_x);
+                        cout << "X actualizado" << endl;    
+                        system ("pause");
+                        break;
+                    }
 
-                getline (archivo, temp);
-                ram = stoi (temp); // string to int
-                p.setRAM (ram);
+                case 3:
+                    {
+                        cout << "Escribe la nueva Ubicacion y" << endl;
+                        cin >> nuevo_y; cin.ignore();
+                        p.setUbicacion_y(nuevo_y);        
+                        system ("pause");
+                        break;
+                    }
 
-                getline (archivo, temp);
-                almacenamiento = stof (temp); // string to float
-                p.setAlmacenamiento (almacenamiento);
-
-                agregarcompu(p);
+                case 4:
+                    {
+                        cout << "Escribe la nueva Puntuacion" << endl;
+                        cin >> nuevo_puntuacion; cin.ignore();
+                        p.setPuntuacion(nuevo_puntuacion);                               
+                        system ("pause");
+                        break;
+                    }  
             }
-        }
-        archivo.close();
+                
     }
-void Laboratorio::insertar(const computadora &p, size_t pos)
-{
-    computadoras.insert(computadoras.begin()+pos, p);
-}
-
-size_t Laboratorio::size()
-{
-    return computadoras.size();
-}
-
-void Laboratorio::inicializar(const computadora &p, size_t n)
-{
-    computadoras = vector<computadora>(n, p);
-}
-
-void Laboratorio::eliminar(size_t pos)
-{
-    computadoras.erase(computadoras.begin()+pos);
-}
-
-void Laboratorio::ordenar()
-{
-    sort(computadoras.begin(), computadoras.end());
-}
-
-computadora* Laboratorio::buscar(const computadora &p)
-{
-    // vector<Personaje>::iterator
-    auto it = find(computadoras.begin(), computadoras.end(), p);
-
-    if (it == computadoras.end()) {
-        return nullptr;
-    }
-    else {
-        return &(*it);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -343,97 +373,239 @@ computadora* Laboratorio::buscar(const computadora &p)
 //main.cpp
 int main () 
 {
-    Laboratorio v;
-    string op;
+    vector <string> cadenas;
+    VideoGame v;
+    string op, nuevo_nombre;
+
 
     while (true)
-    {
-        cout << "1) Agregar computadora" << endl;
-        cout << "2) Mostrar" << endl;
-        cout << "3) Respaldar" << endl;
-        cout << "4) Recuperar" << endl;
-        cout << "5) Insertar" << endl;
-        cout << "6) Inicializar" << endl;
-        cout << "7) Eliminar" << endl;
-        cout << "8) Ordenar" << endl;
+    {   
+        system ("cls");
+        cout << "               Usuario:" << endl;
+        cout << " " << v.getNombre_Videogame() << endl;        
+        cout << "=============== M E N U ===============" << endl;
+        cout << "1) Nombre de Usuario" << endl;
+        cout << "2) Agregar Civilizacion" << endl;
+        cout << "3) Insertar Civilizacion" << endl;
+        cout << "4) Crear Civilizaciones" << endl;
+        cout << "5) Primera Civilizacion" << endl;
+        cout << "6) Ultima Civilizacion" << endl;
+        cout << "7) Ordenar" << endl;
+        cout << "8) Eliminar Civilizacion" << endl;
         cout << "9) Buscar" << endl;
-        cout << "0) Salir" << endl;
+        cout << "10) Modificar" << endl;
+        cout << "11) Resumen" << endl;
+        cout << "12) Salir" << endl;
+        cout << "Opcion: ";
         getline(cin, op);
+        
 
-        if (op == "1") {
-            computadora p;
+        if (op == "1") 
+            {   
+                string nombre_videogame;
+                cout << "Dame el nombre de usuario" << endl;
+                getline(cin, nombre_videogame);
+                v.setNombre_Videogame(nombre_videogame);
+                cout << "===  " << v.getNombre_Videogame() << "  ===" << endl;
+                system ("pause");
+            } 
 
-            cin >> p;
+// Agregar civilizacion
+        else if (op == "2") 
+            {
+                cout << "=========== Agregar civilizacion ===========" << endl;
+                Civilizacion p;
 
-            v.agregarcompu(p); 
-            cin.ignore();
-        } 
-        else if (op == "2") {
-            v.mostrar();
-        }
-        else if (op == "3") {
-            v.respaldar();
-        }
-        else if (op == "4") {
-            v.recuperar();
-        }
-        else if (op == "5") {
-            computadora p;
-            cin >> p;
+                cin >> p;
 
-            size_t pos;
-            cout << "posición: ";
-            cin >> pos; cin.ignore();
+                v.agregarcivilizacion(p); 
+                cin.ignore();
+                system ("pause");
+            } 
 
-            if (pos >= v.size()) {
-                cout << "Posición no válida" << endl;
+// Insertar civilizacion
+        else if (op == "3") 
+            {
+                cout << "=========== Insertar civilizacion ===========" << endl;
+                Civilizacion p;
+                cin >> p;
+
+                size_t pos;
+                cout << "Posición: ";
+                cin >> pos; cin.ignore();
+
+                if (pos >= v.size()) 
+                    {
+                        cout << "Posicion no válida" << endl;
+                        system ("pause");
+                    }
+                else 
+                    {
+                        v.insertar(p, pos);
+                        system ("pause");
+                    }
+            } 
+
+// Inicializar
+        else if (op == "4") 
+            {
+                cout << "=========== Inicializar ===========" << endl;
+                Civilizacion p;
+                cin >> p;
+
+                size_t n;
+                cout << "Numero de veces a inicializar: ";
+                cin >> n; cin.ignore();
+
+                v.inicializar(p, n);
+                system ("pause");
             }
-            else {
-                v.insertar(p, pos);
+
+// Primera civilizacion
+         else if (op == "5")
+            {
+                cout << "=========== Primera Civilizacion ===========" << endl;
+                v.primera ();
+                system ("pause");
             }
-        }
-        else if (op == "6") {
-            computadora p;
-            cin >> p;
 
-            size_t n;
-            cout << "n: ";
-            cin >> n; cin.ignore();
-
-            v.inicializar(p, n);
-        }
-        else if (op == "7") {
-            size_t pos;
-            cout << "posición: ";
-            cin >> pos; cin.ignore();
-
-            if (pos >= v.size()) {
-                cout << "Posición no válida" << endl;
+// Ultima civilizacion 
+        else if (op == "6")
+            {
+                cout << "=========== Ultima Civilizacion ===========" << endl;
+                v.ultimo ();
+                system ("pause");
             }
-            else {
-                v.eliminar(pos);
-            }
-        }
-        else if (op == "8") {
-            v.ordenar();
-        }
-        else if (op == "9") {
-            computadora p;
-            cin >> p; cin.ignore();
 
-            computadora *ptr = v.buscar(p);
+// Ordenar
+        else if (op == "7") 
+        {  
+                while (true)
+                {
+                    cout << "=============== Menu de Ordenar ===============" << endl;
+                    cout << "1) Ordenar por Nombre" << endl;
+                    cout << "2) Ordenar por Ubicacion en X" << endl;
+                    cout << "3) Ordenar por Ubicacion en Y" << endl;
+                    cout << "4) Ordenar por Puntuacion - Descendente" << endl;
+                    getline(cin, op);
 
-            if (ptr == nullptr) {
-                cout << "no encontrado" << endl;
-            }
-            else {
-                cout << *ptr << endl;
-            }
-        }
-        else if (op == "0") {
-            break;
-        }
-    }
+                    if (op == "1")
+                    {
+                        v.ordenarNombre();
+                        system ("pause");
+                        break;
+                    }
 
+                    if (op == "2")
+                    {
+                        v.ordenarUbicacion_x ();
+                        system ("pause");
+                        break;
+                    }
+
+                    if (op == "3")
+                    {
+                        v.ordenarUbicacion_y ();
+                        system ("pause");
+                        break;
+                    }
+
+                    if (op == "4")
+                    {
+                        v.ordenarPuntuacion();
+                        system ("pause");
+                        break;
+                    }
+                }     
+            }
+
+// Eliminar
+        else if (op == "8") 
+            {
+                cout << "=========== Eliminar ===========" << endl;
+                size_t pos;
+                cout << "Posicion: ";
+                cin >> pos; cin.ignore();
+
+                if (pos >= v.size()) 
+                {
+                 cout << "Posicion no válida" << endl;
+                 system ("pause");
+                }
+                else 
+                {
+                 v.eliminar(pos);
+                 system ("pause");
+                }
+            }
+
+// Buscar
+        else if (op == "9") 
+            {
+                cout << "=========== Buscar ===========" << endl;
+                Civilizacion p;
+                cin >> p; cin.ignore();
+
+                Civilizacion *ptr = v.buscar(p);
+
+                if (ptr == nullptr) {
+                    cout << "no encontrado" << endl;
+                    system ("pause");
+                }
+                else {
+                    cout << "Civilizacion encontrada: " << endl;
+                    cout << *ptr << endl;
+                    system ("pause");
+                }
+            }
+
+// Modificar
+        else if (op == "10")
+            {
+                cout << "=========== Modificar ===========" << endl;
+                Civilizacion p;
+
+                cout << "Inserte los datos de la Civilizacion a modificar: " << endl;
+                cin >> p; cin.ignore();
+
+                Civilizacion *ptr = v.buscar(p);
+
+                if (ptr == nullptr) 
+                    {
+                        cout << "Civilizacion no encontrada" << endl;
+                        system ("pause");
+                    }
+                else 
+                    {
+                        cout << "Civilizacion encontrada: " << endl;
+                        cout << *ptr << endl;
+                        v.modificar(*ptr);
+                    }
+            }
+
+// Resumen / mostrar
+        else if (op == "11")
+            {
+                cout << "=========== Resumen ===========" << endl;
+                v.mostrar();
+                system ("pause");
+            }
+        
+// Salir 
+        else if (op == "12") 
+            {
+                cout << "Usted ha salido del programa" << endl;
+                system ("pause");
+                break;
+            }
+
+// opcion invalida
+        else if (op < "1"||op > "12")
+            {
+                cout << "Opcion Invalida, intentelo de nuevo..." << endl;
+                system ("pause");
+            }
+        
+    } 
     return 0;
-} 
+}
